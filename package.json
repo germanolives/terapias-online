@@ -18,7 +18,8 @@
     "@fontsource-variable/onest": "^5.2.11",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.6",
-    "resend": "^6.11.0"
+    "resend": "^6.11.0",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "tailwindcss": "^4.2.2"
