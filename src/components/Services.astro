@@ -5,8 +5,11 @@ import type { Service } from "../data/services";
 
 // 1. Hacemos la llamada "Asíncrona" a nuestra propia API
 // En Astro, podemos usar 'await' directamente en el frontmatter
-const response = await fetch("http://localhost:4321/api/services.json");
-const services: Service[] = await response.json();
+// const response = await fetch("http://localhost:4321/api/services.json");
+// const services: Service[] = await response.json();
+
+// 2. HACÉ IMPORTACIÓN DIRECTA:
+import { SERVICES } from "../data/services";
 ---
 
 <section id="services" class="py-20 bg-white">
@@ -20,7 +23,7 @@ const services: Service[] = await response.json();
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
       {
-        services.map((service) => (
+        SERVICES.map((service) => (
           <ServiceCard
             title={service.title}
             description={service.description}
