@@ -1,0 +1,78 @@
+---
+// src/components/FloatingActions.astro
+const phoneNumber = "5491134681955"; 
+const message = encodeURIComponent("Hola Lic. Graciela, vi su página web y me gustaría realizar una consulta.");
+const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+---
+
+<div class="fixed bottom-8 right-4 flex flex-col items-center gap-4 z-50">
+  
+  <a
+    href={whatsappUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform duration-300"
+    aria-label="Contactar por WhatsApp"
+  >
+    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-1.296-.749-1.89-.749-.595 0-1.04.223-1.263.472-.222.248-.867.843-.867 2.059 0 1.215.892 2.39 1.015 2.563.125.173 1.756 2.682 4.256 3.758.595.257 1.058.41 1.417.525.599.189 1.144.163 1.574.1.479-.069 1.474-.603 1.682-1.186.208-.584.208-1.084.145-1.186-.062-.102-.232-.163-.529-.312z"/>
+        <path d="M12.004 2c-5.518 0-10 4.482-10 10 0 1.765.46 3.42 1.266 4.853l-1.27 4.636 4.745-1.244c1.403.766 2.997 1.205 4.69 1.205 5.518 0 10-4.482 10-10s-4.482-10-10-10zm0 18.232c-1.554 0-3.045-.402-4.348-1.16l-.312-.181-2.82.739.753-2.747-.199-.316a8.196 8.196 0 01-1.257-4.336c0-4.537 3.695-8.232 8.232-8.232s8.232 3.695 8.232 8.232-3.695 8.232-8.232 8.232z"/>
+    </svg>
+  </a>
+
+  <div class="flex flex-col bg-white/90 backdrop-blur-sm rounded-full shadow-xl border border-gray-100 overflow-hidden">
+    
+    <button id="btn-up" class="p-3 text-clinica-primary hover:bg-clinica-primary hover:text-white transition-all duration-300 border-b border-gray-100 hidden">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7" />
+      </svg>
+    </button>
+
+    <button id="btn-down" class="p-3 text-clinica-primary hover:bg-clinica-primary hover:text-white transition-all duration-300">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  const btnUp = document.getElementById('btn-up');
+  const btnDown = document.getElementById('btn-down');
+
+  const updateArrows = () => {
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const fullHeight = document.documentElement.scrollHeight;
+    const margin = 50; // Margen de error para detectar top/bottom
+
+    // Lógica para SUBIR: se muestra si bajamos más de 50px
+    if (scrollY > margin) {
+      btnUp?.classList.remove('hidden');
+    } else {
+      btnUp?.classList.add('hidden');
+    }
+
+    // Lógica para BAJAR: se oculta si llegamos al final de la página
+    // (Posición actual + altura ventana >= altura total - margen)
+    if (scrollY + windowHeight >= fullHeight - margin) {
+      btnDown?.classList.add('hidden');
+      btnUp?.classList.remove('border-b'); // Estético: quitamos la línea divisoria si solo queda uno
+    } else {
+      btnDown?.classList.remove('hidden');
+      btnUp?.classList.add('border-b');
+    }
+  };
+
+  btnUp?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  btnDown?.addEventListener('click', () => {
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+  });
+
+  // Escuchamos el scroll y ejecutamos una vez al cargar
+  window.addEventListener('scroll', updateArrows);
+  updateArrows(); 
+</script>

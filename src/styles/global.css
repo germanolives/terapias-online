@@ -1,0 +1,22 @@
+/* 1. Primero todos los imports */
+@import "tailwindcss";
+@import "@fontsource-variable/onest";
+
+/* 2. Configuración de Tailwind v4 */
+@theme {
+  /* Definimos la fuente predeterminada de Tailwind */
+  --font-sans: "Onest Variable", ui-sans-serif, system-ui, sans-serif;
+  
+  /* Tus colores personalizados */
+  --color-clinica-primary: #4a7c59;
+  --color-clinica-soft: #f8f9f5;
+  --color-clinica-accent: #d4a373;
+}
+
+/* 3. Estilos globales del body */
+body {
+  /* Usamos la variable que definimos arriba en @theme */
+  font-family: var(--font-sans);
+  background-color: var(--color-clinica-soft);
+  color: #1f2937; /* un gris oscuro para legibilidad */
+}

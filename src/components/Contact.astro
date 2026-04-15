@@ -1,0 +1,116 @@
+---
+// src/components/Contact.astro
+---
+
+<section id="contact" class="py-20 bg-clinica-soft">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-clinica-primary">
+        Contacto
+      </h2>
+      <p class="mt-4 text-gray-600 italic">
+        Dejame tu consulta y me pondré en contacto a la brevedad.
+      </p>
+    </div>
+
+    <div class="bg-white p-8 rounded-2xl shadow-xl">
+      <form id="contact-form" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label
+              for="name"
+              class="block text-sm font-semibold text-gray-700 mb-2"
+              >Nombre Completo</label
+            >
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-clinica-primary focus:border-transparent outline-none transition-all"
+            />
+          </div>
+          <div>
+            <label
+              for="email"
+              class="block text-sm font-semibold text-gray-700 mb-2"
+              >Correo Electrónico</label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-clinica-primary focus:border-transparent outline-none transition-all"
+            />
+          </div>
+        </div>
+
+        <div class="hidden" aria-hidden="true">
+          <input type="text" name="subtitle" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div>
+          <label
+            for="message"
+            class="block text-sm font-semibold text-gray-700 mb-2"
+            >Mensaje</label
+          >
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            required
+            class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-clinica-primary focus:border-transparent outline-none transition-all"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-clinica-primary text-white font-bold py-4 rounded-lg hover:bg-clinica-accent transition-colors shadow-lg"
+        >
+          Enviar Mensaje
+        </button>
+      </form>
+
+      <div
+        id="form-success"
+        class="hidden mt-6 p-4 bg-green-50 text-green-700 rounded-lg text-center font-medium"
+      >
+        ¡Gracias! Tu mensaje ha sido enviado con éxito.
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Importamos la herramienta de acciones de Astro
+  import { actions } from "astro:actions";
+
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const successMsg = document.getElementById("form-success");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // 1. Obtenemos los datos del formulario
+    const formData = new FormData(form);
+
+    // 2. Llamamos a la Action 'sendContact'
+    // Esto es "Type-safe": si cambias el nombre en index.ts, aquí te avisará
+    // src/components/Contact.astro (en el script)
+    const { data, error } = await actions.sendContact(formData);
+
+    if (data) {
+      form.reset();
+      // Llamamos a nuestra función global del modal
+      window.showModal("success", "¡Mensaje Enviado!", data.message);
+    } else if (error) {
+      window.showModal(
+        "error",
+        "Hubo un problema",
+        "No pudimos enviar tu mensaje. Por favor, reintentá en unos minutos.",
+      );
+    }
+  });
+</script>

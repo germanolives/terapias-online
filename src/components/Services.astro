@@ -1,0 +1,33 @@
+---
+// src/components/Services.astro
+import ServiceCard from "./ServiceCard.astro";
+import type { Service } from "../data/services";
+
+// 1. Hacemos la llamada "Asíncrona" a nuestra propia API
+// En Astro, podemos usar 'await' directamente en el frontmatter
+const response = await fetch("http://localhost:4321/api/services.json");
+const services: Service[] = await response.json();
+---
+
+<section id="services" class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-clinica-primary">
+        Servicios Profesionales
+      </h2>
+      <div class="w-20 h-1 bg-clinica-accent mx-auto mt-4"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      {
+        services.map((service) => (
+          <ServiceCard
+            title={service.title}
+            description={service.description}
+            icon={service.icon}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,31 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Hero from "../components/Hero.astro"; // Importamos el nuevo Hero
+import Services from "../components/Services.astro";
+import AboutMe from "../components/AboutMe.astro";
+import Contact from "../components/Contact.astro";
+---
+
+<MainLayout title="Lic. Graciela Aballay | Psicóloga Online">
+  <Hero />
+  <Services />
+  <AboutMe />
+  <Contact />
+</MainLayout>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "name": "Lic. Graciela Verónica Aballay",
+    "image": "https://terapiasonline.com.ar/assets/graciela-hero.webp",
+    "description": "Psicóloga clínica graduada en la UBA, especialista en TCC y Psicoanálisis.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Buenos Aires",
+      "addressCountry": "AR"
+    },
+    "medicalSpecialty": "Psychotherapy",
+    "telephone": "+5491134681955"
+  }
+</script>

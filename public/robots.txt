@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://terapiasonline.com.ar/sitemap-index.xml
