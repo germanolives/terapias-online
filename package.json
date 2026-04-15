@@ -17,6 +17,7 @@
     "@astrojs/vercel": "^10.0.4",
     "@fontsource-variable/onest": "^5.2.11",
     "@tailwindcss/vite": "^4.2.2",
+    "@vercel/analytics": "^2.0.1",
     "astro": "^6.1.6",
     "resend": "^6.11.0",
     "sharp": "^0.34.5"
