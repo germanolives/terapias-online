@@ -3,30 +3,39 @@ import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
 import { Resend } from "resend";
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
-
 export const server = {
   sendContact: defineAction({
     accept: "form",
     input: z.object({
-      name: z.string()
+      name: z
+        .string()
         .trim()
         .min(2, "El nombre es muy corto")
         .max(50, "El nombre es demasiado largo"),
-      
-      email: z.string()
+
+      email: z
+        .string()
         .trim()
         .toLowerCase() // Como tu .lower() de Python
         .email("Email inválido"),
-      
-      message: z.string()
+
+      message: z
+        .string()
         .trim()
         .min(10, "El mensaje debe tener al menos 10 caracteres")
         .max(2000, "El mensaje no puede exceder los 2000 caracteres"),
-      
+
       subtitle: z.string().optional(),
     }),
     handler: async (input) => {
+      // 1. Inicializamos AQUÍ adentro para que use las env actualizadas
+      const resend = new Resend(import.meta.env.RESEND_API_KEY);
+
+      if (!import.meta.env.RESEND_API_KEY) {
+        console.error("⚠️ RESEND_API_KEY no encontrada en el entorno.");
+        throw new Error("Error de configuración del servidor.");
+      }
+
       const { name, email, message, subtitle } = input;
 
       if (subtitle) {
@@ -38,9 +47,9 @@ export const server = {
       const { data, error } = await resend.emails.send({
         from: "Web Consultas <onboarding@resend.dev>",
         to: ["licenciadaaballay@gmail.com"],
-        // Usamos reply_to para que si Graciela le da a "Responder", 
+        // Usamos reply_to para que si Graciela le da a "Responder",
         // le escriba directamente al paciente y no a Resend.
-        replyTo: email, 
+        replyTo: email,
         subject: `Nueva consulta de ${name}`,
         html: `
           <div style="font-family: sans-serif; line-height: 1.6; color: #333;">
