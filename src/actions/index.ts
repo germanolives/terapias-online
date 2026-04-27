@@ -45,7 +45,7 @@ export const server = {
 
       // 4. ENVÍO REAL
       const { data, error } = await resend.emails.send({
-        from: "Web Consultas <onboarding@resend.dev>",
+        from: "Lic. Graciela Aballay <consultas@terapiasonline.com.ar>",
         to: ["licenciadaaballay@gmail.com"],
         // Usamos reply_to para que si Graciela le da a "Responder",
         // le escriba directamente al paciente y no a Resend.
