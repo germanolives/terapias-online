@@ -28,13 +28,28 @@ export const server = {
       subtitle: z.string().optional(),
     }),
     handler: async (input) => {
-      // 1. Inicializamos AQUÍ adentro para que use las env actualizadas
-      const resend = new Resend(import.meta.env.RESEND_API_KEY);
+      const apiKey = import.meta.env.RESEND_API_KEY;
+      const mailFrom = import.meta.env.MAIL_FROM;
+      const mailToRaw = import.meta.env.MAIL_TO;
 
-      if (!import.meta.env.RESEND_API_KEY) {
-        console.error("⚠️ RESEND_API_KEY no encontrada en el entorno.");
+      if (!apiKey || !mailFrom || !mailToRaw) {
+        console.error(
+          "Faltan variables de entorno requeridas: RESEND_API_KEY, MAIL_FROM o MAIL_TO",
+        );
         throw new Error("Error de configuración del servidor.");
       }
+
+      const mailTo = mailToRaw
+        .split(",")
+        .map((value: string) => value.trim())
+        .filter(Boolean);
+
+      if (mailTo.length === 0) {
+        console.error("MAIL_TO está vacío o mal configurado.");
+        throw new Error("Error de configuración del servidor.");
+      }
+
+      const resend = new Resend(apiKey);
 
       const { name, email, message, subtitle } = input;
 
@@ -43,10 +58,9 @@ export const server = {
         return { message: "Mensaje procesado correctamente" };
       }
 
-      // 4. ENVÍO REAL
-      const { data, error } = await resend.emails.send({
-        from: "Lic. Graciela Aballay <consultas@terapiasonline.com.ar>",
-        to: ["licenciadaaballay@gmail.com"],
+      const { error } = await resend.emails.send({
+        from: mailFrom,
+        to: mailTo,
         // Usamos reply_to para que si Graciela le da a "Responder",
         // le escriba directamente al paciente y no a Resend.
         replyTo: email,
