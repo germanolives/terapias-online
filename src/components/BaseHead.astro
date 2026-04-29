@@ -1,5 +1,7 @@
 ---
 // BaseHead.astro
+import { getDomainConfig } from "../lib/domain";
+
 interface Props {
   title: string;
   description?: string; // Agregamos una descripción opcional
@@ -9,6 +11,10 @@ const {
   title,
   description = "Lic. Graciela Aballay - Psicóloga UBA. Especialista en Terapia Cognitivo Conductual y Psicoanálisis en Buenos Aires. Consultas online y presenciales.",
 } = Astro.props;
+const domainConfig = getDomainConfig(Astro.url.hostname);
+const canonicalUrl = new URL(Astro.url.pathname, domainConfig.canonicalOrigin).toString();
+const alternateEsUrl = new URL(Astro.url.pathname, domainConfig.alternateEsOrigin).toString();
+const alternateArUrl = new URL(Astro.url.pathname, domainConfig.alternateArOrigin).toString();
 ---
 
 <meta charset="utf-8" />
@@ -16,10 +22,14 @@ const {
 <meta name="generator" content={Astro.generator} />
 <title>{title}</title>
 <meta name="description" content={description} />
-<link rel="canonical" href="https://terapiasonline.com.ar" />
+<link rel="canonical" href={canonicalUrl} />
+<link rel="alternate" hreflang="es-ES" href={alternateEsUrl} />
+<link rel="alternate" hreflang="es-AR" href={alternateArUrl} />
+<link rel="alternate" hreflang="x-default" href={alternateArUrl} />
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
 <meta property="og:image" content="/og-image.jpg" />
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />

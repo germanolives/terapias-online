@@ -1,5 +1,8 @@
 ---
 // AboutMe.astro
+import { isSpainHost } from "../lib/domain";
+
+const isSpain = isSpainHost(Astro.url.hostname);
 ---
 <section id="about-me" class="py-20 bg-white">
   <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row-reverse items-center gap-16">
@@ -10,7 +13,9 @@
       </h2>
       <div class="space-y-4 text-lg text-gray-600 leading-relaxed">
         <p>
-          Soy la <strong>Lic. Graciela Verónica Aballay</strong>, graduada de la Universidad de Buenos Aires. Mi enfoque se centra en brindar un espacio de salud mental integral y ético.
+          Soy la <strong>Lic. Graciela Verónica Aballay</strong>, graduada de la Universidad de Buenos Aires. {
+            isSpain && "Cuento con el título homologado a Psicóloga General Sanitaria en España. "
+          }Mi enfoque se centra en brindar un espacio de salud mental integral y ético.
         </p>
         <p>
           Cuento con una sólida formación en <strong>Terapia Cognitivo Conductual</strong> y <strong>Psicoanálisis</strong>, lo que me permite adaptar el tratamiento a las necesidades singulares de cada consultante.
@@ -25,8 +30,12 @@
       <div class="aspect-square bg-clinica-soft rounded-full border-2 border-dashed border-clinica-accent flex items-center justify-center p-8">
         <div class="text-center">
           <span class="text-5xl block mb-4">🎓</span>
-          <p class="text-clinica-primary font-bold">M.N. 70449</p>
-          <p class="text-sm text-gray-500 uppercase tracking-widest mt-2">Matrícula Nacional</p>
+          <p class="text-clinica-primary font-bold">
+            {isSpain ? "Psicóloga General Sanitaria" : "M.N. 70449"}
+          </p>
+          <p class="text-sm text-gray-500 uppercase tracking-widest mt-2">
+            {isSpain ? "Título UBA (M.N. 70449) homologado" : "Matrícula Nacional"}
+          </p>
         </div>
       </div>
     </div>

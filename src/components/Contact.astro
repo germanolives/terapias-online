@@ -1,5 +1,8 @@
 ---
 // src/components/Contact.astro
+const isSpain = Astro.url.hostname.includes(".es");
+const therapyTerm = isSpain ? "Psicoterapia" : "Terapia";
+const countryLabel = isSpain ? "España" : "Argentina";
 ---
 
 <section id="contact" class="py-20 bg-clinica-soft">
@@ -9,7 +12,7 @@
         Contacto
       </h2>
       <p class="mt-4 text-gray-600 italic">
-        Dejame tu consulta y me pondré en contacto a la brevedad.
+        Dejame tu consulta de {therapyTerm.toLowerCase()} y me pondré en contacto a la brevedad.
       </p>
     </div>
 
@@ -48,6 +51,7 @@
 
         <div class="hidden" aria-hidden="true">
           <input type="text" name="subtitle" tabindex="-1" autocomplete="off" />
+          <input type="text" name="region" value={countryLabel} tabindex="-1" autocomplete="off" />
         </div>
 
         <div>
@@ -69,7 +73,7 @@
           type="submit"
           class="w-full bg-clinica-primary text-white font-bold py-4 rounded-lg hover:bg-clinica-accent transition-colors shadow-lg"
         >
-          Enviar Mensaje
+          Enviar consulta de {therapyTerm}
         </button>
       </form>
 

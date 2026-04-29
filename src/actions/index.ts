@@ -26,8 +26,9 @@ export const server = {
         .max(2000, "El mensaje no puede exceder los 2000 caracteres"),
 
       subtitle: z.string().optional(),
+      region: z.enum(["España", "Argentina"]).optional(),
     }),
-    handler: async (input) => {
+    handler: async (input, context) => {
       const apiKey = import.meta.env.RESEND_API_KEY;
       const mailFrom = import.meta.env.MAIL_FROM;
       const mailToRaw = import.meta.env.MAIL_TO;
@@ -51,12 +52,17 @@ export const server = {
 
       const resend = new Resend(apiKey);
 
-      const { name, email, message, subtitle } = input;
+      const { name, email, message, subtitle, region } = input;
 
       if (subtitle) {
         console.warn("Spam detectado: Honeypot lleno.");
         return { message: "Mensaje procesado correctamente" };
       }
+
+      const regionFromHost = context.url.hostname.includes(".es")
+        ? "España"
+        : "Argentina";
+      const sourceRegion = region ?? regionFromHost;
 
       const { error } = await resend.emails.send({
         from: mailFrom,
@@ -64,10 +70,10 @@ export const server = {
         // Usamos reply_to para que si Graciela le da a "Responder",
         // le escriba directamente al paciente y no a Resend.
         replyTo: email,
-        subject: `Nueva consulta de ${name}`,
+        subject: `Nueva consulta (${sourceRegion}) de ${name}`,
         html: `
           <div style="font-family: sans-serif; line-height: 1.6; color: #333;">
-            <h2 style="color: #4a7c59;">Nueva consulta desde la web</h2>
+            <h2 style="color: #4a7c59;">Nueva consulta desde la web (${sourceRegion})</h2>
             <p><strong>Nombre:</strong> ${name}</p>
             <p><strong>Email:</strong> ${email}</p>
             <hr style="border: 0; border-top: 1px solid #eee;" />

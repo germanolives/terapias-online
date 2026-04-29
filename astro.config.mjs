@@ -9,6 +9,12 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      allowedHosts: [
+        'psicoterapiaonline.es.local',
+        'terapiasonline.com.ar.local',
+      ],
+    },
   },
 
   // 2. MODO DE SALIDA
@@ -22,3 +28,4 @@ export default defineConfig({
 
   integrations: [sitemap()],
 });
+

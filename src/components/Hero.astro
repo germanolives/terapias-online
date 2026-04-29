@@ -2,6 +2,11 @@
 // src/components/Hero.astro
 import { Image } from "astro:assets";
 import fotoGraciela from "../assets/graciela-hero.webp";
+import { isSpainHost } from "../lib/domain";
+
+const isSpain = isSpainHost(Astro.url.hostname);
+const primaryCta = isSpain ? "Solicitar Cita" : "Solicitar Turno";
+const secondaryCta = isSpain ? "Conóceme más" : "Conoceme más";
 ---
 
 <section class="relative bg-clinica-soft py-16 md:py-24 overflow-hidden w-full">
@@ -15,7 +20,11 @@ import fotoGraciela from "../assets/graciela-hero.webp";
         Lic. <span class="text-clinica-accent">Graciela Verónica Aballay</span>
       </h1>
       <p class="mt-4 text-2xl font-medium text-gray-700">
-        Psicóloga UBA — M.N. 70449
+        {
+          isSpain
+            ? "Psicóloga General Sanitaria"
+            : "Psicóloga UBA — M.N. 70449"
+        }
       </p>
       <p class="mt-6 text-lg text-gray-600 max-w-xl leading-relaxed">
         Especialista en Terapia Cognitivo Conductual y Psicoanálisis.
@@ -29,13 +38,13 @@ import fotoGraciela from "../assets/graciela-hero.webp";
           href="#contact"
           class="bg-clinica-primary text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl inline-block text-center"
         >
-          Solicitar Turno
+          {primaryCta}
         </a>
         <a
           href="#about-me"
           class="border-2 border-clinica-primary text-clinica-primary px-8 py-4 rounded-full font-bold text-lg hover:bg-clinica-primary hover:text-white transition-all inline-block text-center"
         >
-          Conoceme más
+          {secondaryCta}
         </a>
       </div>
     </div>

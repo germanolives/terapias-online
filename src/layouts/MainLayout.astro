@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar.astro";
 import Modal from "../components/Modal.astro";
 import FloatingActions from "../components/FloatingActions.astro";
 import Footer from "../components/Footer.astro";
+import { isSpainHost } from "../lib/domain";
 
 interface Props {
   title: string;
@@ -17,17 +18,18 @@ const {
   title,
   description = "Lic. Graciela Aballay - Psicóloga UBA. Especialista en Terapia Cognitivo Conductual y Psicoanálisis en Buenos Aires. Consultas online y presenciales.",
 } = Astro.props;
+const isSpain = isSpainHost(Astro.url.hostname);
 ---
 
 <html lang="es">
   <head>
     <BaseHead title={title} description={description} />
   </head>
-  <body class="bg-clinica-soft text-gray-800">
-    <Navbar />
+  <body class="bg-clinica-soft text-gray-800" data-country={isSpain ? "es" : "ar"}>
+    <Navbar isSpain={isSpain} />
     <main><slot /></main>
-    <Footer />
-    <FloatingActions />
+    <Footer isSpain={isSpain} />
+    <FloatingActions isSpain={isSpain} />
     <Modal />
     <SpeedInsights />
   </body>

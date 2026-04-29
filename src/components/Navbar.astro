@@ -1,10 +1,15 @@
 ---
 // Navbar.astro
+interface Props {
+  isSpain?: boolean;
+}
+
+const { isSpain = false } = Astro.props;
 ---
 <nav class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
   <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
     <a href="/" class="text-xl font-bold text-clinica-primary">
-      Terapias <span class="text-clinica-accent">Online</span>
+      {isSpain ? "Psicoterapia" : "Terapias"} <span class="text-clinica-accent">Online</span>
     </a>
 
     <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-600">
