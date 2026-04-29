@@ -31,7 +31,18 @@ const currentYear = new Date().getFullYear();
             class="inline-block bg-clinica-soft px-3 py-1 rounded-full border border-clinica-accent/20"
           >
             <span class="text-xs font-semibold text-clinica-primary"
-              >{isSpain ? "Título UBA (M.N. 70449) homologado" : "Matrícula Nacional: 70.449"}</span
+              >{
+                isSpain ? (
+                  <div>
+                    <p>Universidad de Buenos Aires - M.N. 70449</p>
+                    <p>(Título UBA homologado en España)</p>
+                  </div>
+                ) : (
+                <div>
+                    <p>Universidad de Buenos Aires - M.N. 70449</p>
+                  </div>
+                )
+              }</span
             >
           </div>
         </div>

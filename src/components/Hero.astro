@@ -19,13 +19,20 @@ const secondaryCta = isSpain ? "Conóceme más" : "Conoceme más";
       >
         Lic. <span class="text-clinica-accent">Graciela Verónica Aballay</span>
       </h1>
-      <p class="mt-4 text-2xl font-medium text-gray-700">
-        {
-          isSpain
-            ? "Psicóloga General Sanitaria"
-            : "Psicóloga UBA — M.N. 70449"
-        }
-      </p>
+      {
+        isSpain ? (
+          <div class="mt-6 text-gray-700 leading-snug">
+            <p class="text-4xl font-semibold">Psicóloga General Sanitaria</p>
+            <p class="text-lg font-medium mt-1">Universidad de Buenos Aires - M.N. 70449</p>
+            <p class="text-base mt-1">(Título UBA homologado en España)</p>
+          </div>
+        ) : (
+        <div class="mt-6 text-gray-700 leading-snug">
+            <p class="text-4xl font-semibold">Psicóloga</p>
+            <p class="text-lg font-medium mt-1">Universidad de Buenos Aires - M.N. 70449</p>
+          </div>
+        )
+      }
       <p class="mt-6 text-lg text-gray-600 max-w-xl leading-relaxed">
         Especialista en Terapia Cognitivo Conductual y Psicoanálisis.
         Acompañamiento profesional para transitar procesos de cambio y bienestar
