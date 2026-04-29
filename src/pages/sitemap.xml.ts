@@ -16,7 +16,7 @@ export const GET: APIRoute = ({ url }) => {
     <loc>${currentUrl}</loc>
     <xhtml:link rel="alternate" hreflang="es-ES" href="${esUrl}" />
     <xhtml:link rel="alternate" hreflang="es-AR" href="${arUrl}" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="${arUrl}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${esUrl}" />
   </url>
 </urlset>
 `;

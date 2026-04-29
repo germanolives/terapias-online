@@ -14,11 +14,13 @@ interface Props {
   description?: string; // Agregamos una descripción opcional
 }
 
+const isSpain = isSpainHost(Astro.url.hostname);
 const {
   title,
-  description = "Lic. Graciela Aballay - Psicóloga UBA. Especialista en Terapia Cognitivo Conductual y Psicoanálisis en Buenos Aires. Consultas online y presenciales.",
+  description = isSpain
+    ? "Lic. Graciela Aballay - Psicóloga General Sanitaria. Psicoterapia online para residentes en España."
+    : "Lic. Graciela Aballay - Psicóloga UBA. Especialista en Terapia Cognitivo Conductual y Psicoanálisis en Buenos Aires. Consultas online y presenciales.",
 } = Astro.props;
-const isSpain = isSpainHost(Astro.url.hostname);
 ---
 
 <html lang="es">

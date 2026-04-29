@@ -6,11 +6,16 @@ import AboutMe from "../components/AboutMe.astro";
 import Contact from "../components/Contact.astro";
 import TrustShield from "../components/TrustShield.astro";
 import { getPsychologySchemas } from "../lib/seo-logic";
+import { isSpainHost } from "../lib/domain";
 
 const schemas = getPsychologySchemas(Astro.url.hostname);
+const isSpain = isSpainHost(Astro.url.hostname);
+const pageTitle = isSpain
+  ? "Lic. Graciela Aballay | Psicoterapia Online en España"
+  : "Lic. Graciela Aballay | Terapias Online en Argentina";
 ---
 
-<MainLayout title="Lic. Graciela Aballay | Psicóloga Online">
+<MainLayout title={pageTitle}>
   <Hero />
   <Services />
   <AboutMe />
