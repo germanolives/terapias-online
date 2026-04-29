@@ -4,33 +4,22 @@ import Hero from "../components/Hero.astro"; // Importamos el nuevo Hero
 import Services from "../components/Services.astro";
 import AboutMe from "../components/AboutMe.astro";
 import Contact from "../components/Contact.astro";
-import { getDomainConfig, isSpainHost } from "../lib/domain";
+import TrustShield from "../components/TrustShield.astro";
+import { getPsychologySchemas } from "../lib/seo-logic";
 
-const domainConfig = getDomainConfig(Astro.url.hostname);
-const isSpain = isSpainHost(Astro.url.hostname);
-const businessSchema = {
-  "@context": "https://schema.org",
-  "@type": "MedicalBusiness",
-  name: "Lic. Graciela Verónica Aballay",
-  image: `${domainConfig.canonicalOrigin}/assets/graciela-hero.webp`,
-  url: domainConfig.canonicalOrigin,
-  description:
-    "Psicóloga clínica graduada en la UBA, especialista en TCC y Psicoanálisis.",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: isSpain ? "España" : "Buenos Aires",
-    addressCountry: isSpain ? "ES" : "AR",
-  },
-  medicalSpecialty: "Psychotherapy",
-  telephone: domainConfig.whatsappDisplay,
-};
+const schemas = getPsychologySchemas(Astro.url.hostname);
 ---
 
 <MainLayout title="Lic. Graciela Aballay | Psicóloga Online">
   <Hero />
   <Services />
   <AboutMe />
+  <TrustShield />
   <Contact />
 </MainLayout>
 
-<script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+{
+  schemas.map((schema) => (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  ))
+}

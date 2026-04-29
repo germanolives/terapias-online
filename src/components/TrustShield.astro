@@ -1,0 +1,44 @@
+---
+import { isSpainHost } from "../lib/domain";
+
+const isSpain = isSpainHost(Astro.url.hostname);
+---
+
+<section class="py-12 bg-white">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="rounded-2xl border border-clinica-accent/30 bg-clinica-soft p-6 md:p-8">
+      <h2 class="text-2xl font-bold text-clinica-primary mb-3">Respaldo Profesional</h2>
+      <p class="text-gray-600 mb-5">
+        Credenciales verificables para una práctica clínica ética, segura y adaptada a cada país.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <div class="bg-white rounded-xl border border-gray-100 p-4">
+          <span class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Profesional</span>
+          <data value="Lic. Graciela Verónica Aballay" itemid="#professional" class="font-semibold text-clinica-primary">
+            Lic. Graciela Verónica Aballay
+          </data>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-100 p-4">
+          <span class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Título Base</span>
+          <data value="Universidad de Buenos Aires" itemid="#degree" class="font-semibold text-clinica-primary">
+            Universidad de Buenos Aires
+          </data>
+          <span class="block text-gray-500 mt-1">M.N. 70449</span>
+        </div>
+        <div class="bg-white rounded-xl border border-gray-100 p-4">
+          <span class="block text-xs uppercase tracking-wider text-gray-500 mb-2">Validez Territorial</span>
+          <data
+            value={isSpain ? "Título homologado en España" : "Matrícula profesional en Argentina"}
+            itemid="#territorial-validity"
+            class="font-semibold text-clinica-primary"
+          >
+            {isSpain ? "Psicóloga General Sanitaria (España)" : "Licenciada en Psicología (Argentina)"}
+          </data>
+          <span class="block text-gray-500 mt-1">
+            {isSpain ? "Título UBA homologado en España" : "Matrícula Nacional Argentina"}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

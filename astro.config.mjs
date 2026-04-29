@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import vercel from '@astrojs/vercel';
-import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   // 1. EL SITIO (CRÍTICO para el Sitemap y SEO)
@@ -25,7 +24,5 @@ export default defineConfig({
   adapter: vercel({
     webAnalytics: { enabled: true }, // Tip: Vercel te dará métricas gratis
   }),
-
-  integrations: [sitemap()],
 });
 
