@@ -12,8 +12,8 @@ export function getDomainConfig(hostname: string) {
     isSpain,
     siteName: isSpain ? "Psicoterapia Online" : "Terapias Online",
     therapyTerm: isSpain ? "Psicoterapia" : "Terapia",
-    whatsappDisplay: isSpain ? "+34 610 13 47 00" : "+54 911 3468 1955",
-    whatsappE164: isSpain ? "34610134700" : "5491134681955",
+    whatsappDisplay: isSpain ? "+34 696 03 51 56" : "+54 911 3468 1955",
+    whatsappE164: isSpain ? "34696035156" : "5491134681955",
     countryLabel: isSpain ? "España" : "Argentina",
     cityLabel: isSpain ? "España" : "Buenos Aires, Argentina",
     canonicalOrigin: isSpain
