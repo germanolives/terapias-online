@@ -15,7 +15,7 @@ export function getDomainConfig(hostname: string) {
     whatsappDisplay: isSpain ? "+34 696 03 51 56" : "+54 911 3468 1955",
     whatsappE164: isSpain ? "34696035156" : "5491134681955",
     countryLabel: isSpain ? "España" : "Argentina",
-    cityLabel: isSpain ? "España" : "Buenos Aires, Argentina",
+    cityLabel: isSpain ? "Zaragoza, España" : "Buenos Aires, Argentina",
     canonicalOrigin: isSpain
       ? `https://${SPAIN_DOMAIN}`
       : `https://${ARGENTINA_DOMAIN}`,
