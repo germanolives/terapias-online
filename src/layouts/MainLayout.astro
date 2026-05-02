@@ -1,6 +1,7 @@
 ---
 // MainLayout.astro
 import "../styles/global.css";
+import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro"
 import BaseHead from "../components/BaseHead.astro";
 import Navbar from "../components/Navbar.astro";
@@ -33,6 +34,7 @@ const {
     <Footer isSpain={isSpain} />
     <FloatingActions isSpain={isSpain} />
     <Modal />
+    <Analytics />
     <SpeedInsights />
   </body>
 </html>
