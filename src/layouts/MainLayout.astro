@@ -2,6 +2,7 @@
 // MainLayout.astro
 import "../styles/global.css";
 import SpeedInsights from "@vercel/speed-insights/astro"
+import Analytics from "@vercel/analytics/astro";
 import BaseHead from "../components/BaseHead.astro";
 import Navbar from "../components/Navbar.astro";
 import Modal from "../components/Modal.astro";
@@ -26,6 +27,7 @@ const {
 <html lang="es">
   <head>
     <BaseHead title={title} description={description} />
+    <Analytics />
   </head>
   <body class="bg-clinica-soft text-gray-800" data-country={isSpain ? "es" : "ar"}>
     <Navbar isSpain={isSpain} />
